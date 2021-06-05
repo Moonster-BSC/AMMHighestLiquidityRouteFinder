@@ -13,11 +13,10 @@ let solved = false
 export const getShortestPathWithHighestLiquidity = async (startToken: string, endToken: string, USDThreshold = 500000): Promise<string[]> => {
     const graph = await getPairGraphWithLiquidityWeights(quickClient, USDThreshold)
 
-    // DFS
-    
     // init routes
     currentRoute.push(startToken)
-
+    
+    // DFS
     search(graph, currentRoute, endToken)
 
     return bestRoute
@@ -67,7 +66,7 @@ const search = (graph: AdjacencyMap<number>, currentRoute: string[], tokenB: str
             search(graph, currentRoute, tokenB)
         }
 
-        // try diff route
+        // backtrack and try diff route
         currentRoute.pop()
     }
 }
