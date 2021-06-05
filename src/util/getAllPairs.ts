@@ -17,14 +17,20 @@ export const getPairGraphWithLiquidityWeights = async (client: ApolloClient<Norm
     const pairAdjacencyMap: AdjacencyMap<number> = {}
 
     pairs.forEach((pair: { id: any; token0: any; token1: any; reserveUSD: any }) => {
-        const { id, token0: {symbol: tokenA}, token1: {symbol: tokenB}, reserveUSD } = pair;
+        const { id, token0: {symbol: tokenA}, token1: {symbol: tokenB}, reserveUSD }: {
+            id: string;
+            token0: any;
+            token1: any;
+            reserveUSD: string;
+        } = pair;
 
+        const liquidity = Number(reserveUSD)
         // put in map
-        putInMap(pairAdjacencyMap, tokenA, tokenB, reserveUSD)
-        putInMap(pairAdjacencyMap, tokenA, tokenB, reserveUSD)
+        putInMap(pairAdjacencyMap, tokenA, tokenB, liquidity)
+        putInMap(pairAdjacencyMap, tokenA, tokenB, liquidity)
 
         // other direction
-        putInMap(pairAdjacencyMap, tokenB, tokenA, reserveUSD)
+        putInMap(pairAdjacencyMap, tokenB, tokenA, liquidity)
     });
 
     return pairAdjacencyMap

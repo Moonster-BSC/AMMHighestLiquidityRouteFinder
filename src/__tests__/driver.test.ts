@@ -8,11 +8,17 @@ import { getShortestPathWithHighestLiquidity } from "../driver/driver";
 // });
 
 const run = async () => {
-    const start = "FXS"
+    const start = "$DG"
     const end = "VISION"
-    const path = await getShortestPathWithHighestLiquidity(start, end, 100000)
-    path.forEach(symbol => {
-        console.log(symbol)
+    const sols = await getShortestPathWithHighestLiquidity(start, end, 100000)
+
+    console.log("Solutions in desc order of total liquidity: \n")
+    sols.forEach((solution) => {
+        console.log("Solution:")
+        solution[0].forEach(symbol => {
+            console.log(symbol)
+        })
+        console.log(`Total liquidity in USD: ${solution[1]}\n`)
     })
 }
 
