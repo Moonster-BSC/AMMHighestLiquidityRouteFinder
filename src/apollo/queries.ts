@@ -1,11 +1,6 @@
 import gql from 'graphql-tag';
 
-export const getAllPairsQuery = (pairs, startTimestamp, endTimestamp) => {
-  let pairsString = `[`;
-  pairs.map(pair => {
-    return (pairsString += `"${pair}"`);
-  });
-  pairsString += ']';
+export const getAllPairsQuery = () => {
   const queryString = `
     query getAllPairs {
       pairs {

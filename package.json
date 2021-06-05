@@ -4,7 +4,14 @@
   "main": "index.js",
   "author": "Moonster <Moonster.bsc@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "pairs": "ts-node ./src/util/getAllPairs.ts"
+  },
   "dependencies": {
+    "@ethersproject/address": "^5.3.0",
+    "@ethersproject/contracts": "^5.3.0",
+    "@ethersproject/providers": "^5.3.0",
+    "@ethersproject/solidity": "^5.3.0",
     "@types/node-fetch": "^2.5.10",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
@@ -14,6 +21,7 @@
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "graphql": "^15.5.0",
     "graphql-tag": "^2.12.4",
     "node-fetch": "^2.6.1",
     "prettier": "^2.3.1",
