@@ -8,9 +8,9 @@ import { getShortestPathWithHighestLiquidity } from "../driver/driver";
 // });
 
 const run = async () => {
-    const dai = "FRAX"
+    const dai = "WETH"
     const bifi = "BIFI"
-    const path = await getShortestPathWithHighestLiquidity(dai, bifi)
+    const path = await getShortestPathWithHighestLiquidity(dai, bifi, 100000)
     path.forEach(symbol => {
         console.log(symbol)
     })
