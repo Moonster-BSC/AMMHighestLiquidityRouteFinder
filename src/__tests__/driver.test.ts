@@ -8,8 +8,8 @@ import { getShortestPathWithHighestLiquidity } from "../driver/driver";
 // });
 
 const run = async () => {
-    const start = "USDC"
-    const end = "BIFI"
+    const start = "FXS"
+    const end = "$DG"
     const sols = await getShortestPathWithHighestLiquidity(start, end, 100000)
 
     console.log("Solutions in desc order of total liquidity: \n")
@@ -18,6 +18,7 @@ const run = async () => {
         solution[0].forEach(symbol => {
             console.log(symbol)
         })
+        // Note that this really isn't a total, as its double counting the liquidity across pairs, but its ok for this algo.
         console.log(`Total liquidity in USD: ${solution[1]}\n`)
     })
 }
