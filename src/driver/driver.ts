@@ -18,24 +18,25 @@ export const getShortestPathWithHighestLiquidity = async (startToken: string, en
     // init routes
     currentRoute.push(startToken)
 
-    search(graph, currentRoute, startToken, endToken)
+    search(graph, currentRoute, endToken)
 
     return bestRoute
 }
 
-const search = (graph: AdjacencyMap<number>, currentRoute: string[], tokenA: string, tokenB: string) => {
+const search = (graph: AdjacencyMap<number>, currentRoute: string[], tokenB: string) => {
+    const head = currentRoute[currentRoute.length-1]
     const getAllNextPathsLiquidityDesc = (graph: AdjacencyMap<number>, tokenA: string) => {
         const edgeMap = graph[tokenA];
         const edgeEntries = Object.entries(edgeMap)
         const edgeEntriesLiquidityDesc = edgeEntries.sort((a, b) => {
             const [ symbolA, liquidityA ] = a
             const [ symbolB, liquidityB ] = b
-            return liquidityA - liquidityB
+            return liquidityB - liquidityA
         })
         return edgeEntriesLiquidityDesc
     }
 
-    const edgeEntriesLiquidityDesc = getAllNextPathsLiquidityDesc(graph, tokenA)
+    const edgeEntriesLiquidityDesc = getAllNextPathsLiquidityDesc(graph, head)
 
     for (const entry of edgeEntriesLiquidityDesc) {
         const [ symbol, liquidity ] = entry
@@ -55,7 +56,7 @@ const search = (graph: AdjacencyMap<number>, currentRoute: string[], tokenA: str
             }
         } else {
             // need to search more
-            search(graph, currentRoute, tokenA, tokenB)
+            search(graph, currentRoute, tokenB)
         }
 
         // try diff route
