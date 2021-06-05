@@ -1,27 +1,47 @@
 import { getAllPairsQuery } from "../apollo/queries";
-import { ChainId, Pair, Token, TokenAmount } from 'quickswap-sdk'
 import { quickClient } from "../apollo/client";
 import { NormalizedCacheObject } from "apollo-cache-inmemory";
 import ApolloClient from "apollo-client";
 
-const testAmount = '2000000000000000000'
+// Goals:
+// Shortest Path from A to B
+// With Highest liquidity
 
-export const getAllPairs = async (client: ApolloClient<NormalizedCacheObject>) => {
+interface AdjacencyMap {
+    [symbol: string]: {
+        [symbol: string]: number   
+    }
+}
+
+export const getPairGraphWithLiquidityWeights = async (client: ApolloClient<NormalizedCacheObject>): Promise<AdjacencyMap> => {
+    const USDThreshold = 500000; // We don't want to use anything with less than 100000 liquidity or else it may incur lots of slippage
     const { data } = await client.query({
-        query: getAllPairsQuery()
+        query: getAllPairsQuery(USDThreshold)
       });
     const { pairs } = data
 
-    const pairMap: Record<string, Pair> = {}
+    const pairAdjacencyMap: AdjacencyMap = {}
 
-    pairs.forEach((pair: { id: any; token0: any; token1: any; }) => {
-        const { id, token0, token1 } = pair;
-        const token0Object = new Token(ChainId.MATIC, token0.id, token0.decimals, token0.symbol, token0.name)
-        const token1Object = new Token(ChainId.MATIC, token1.id, token1.decimals, token1.symbol, token1.name)
-        const pairObject = new Pair(new TokenAmount(token0Object, testAmount), new TokenAmount(token1Object, testAmount))
-        pairMap[id] = pairObject
+    pairs.forEach((pair: { id: any; token0: any; token1: any; reserveUSD: any }) => {
+        const { id, token0: {symbol: tokenA}, token1: {symbol: tokenB}, reserveUSD } = pair;
+
+        // put in map
+        putInMap(pairAdjacencyMap, tokenA, tokenB, reserveUSD)
+
+        // other direction
+        putInMap(pairAdjacencyMap, tokenB, tokenA, reserveUSD)
     });
-    return pairMap
+
+    return pairAdjacencyMap
 }
 
-getAllPairs(quickClient)
+const putInMap = (pairAdjacencyMap: AdjacencyMap, tokenA: string, tokenB: string, reserveUSD: number) => {
+    if (tokenA in pairAdjacencyMap) {
+        pairAdjacencyMap[tokenA][tokenB] = reserveUSD
+    } else {
+        pairAdjacencyMap[tokenA] = {}
+        pairAdjacencyMap[tokenA][tokenB] = reserveUSD
+    }
+}
+
+getPairGraphWithLiquidityWeights(quickClient)

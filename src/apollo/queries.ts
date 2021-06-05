@@ -1,9 +1,10 @@
+import { DocumentNode } from 'graphql';
 import gql from 'graphql-tag';
 
-export const getAllPairsQuery = () => {
+export const getAllPairsQuery = (USDThreshold: number): DocumentNode => {
   const queryString = `
     query getAllPairs {
-      pairs {
+      pairs(first: 1000, orderBy: reserveUSD, orderDirection: desc, where: {reserveUSD_gt: ${USDThreshold}}) {
         id
         token0 {
           id
@@ -17,6 +18,7 @@ export const getAllPairsQuery = () => {
           symbol
           name
         }
+        reserveUSD
       }
     }
 `;
