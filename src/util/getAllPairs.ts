@@ -2,7 +2,7 @@ import { getAllPairsQuery } from "../apollo/queries";
 import { NormalizedCacheObject } from "apollo-cache-inmemory";
 import ApolloClient from "apollo-client";
 
-interface AdjacencyMap<T> {
+export interface AdjacencyMap<T> {
     [symbol: string]: {
         [symbol: string]: T   
     }
