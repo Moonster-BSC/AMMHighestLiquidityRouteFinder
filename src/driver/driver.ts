@@ -40,17 +40,21 @@ const search = (graph: AdjacencyMap<number>, currentRoute: string[], tokenB: str
 
     for (const entry of edgeEntriesLiquidityDesc) {
         const [ symbol, liquidity ] = entry
+        if (currentRoute.find(sym => sym === symbol)) {
+            // skip. Don't want to route through same token twice. Should replace this with a visited map tbh. Will try without first to see if this optimization is enough.
+            continue
+        }
         currentRoute.push(symbol)
         if (symbol === tokenB) {
             // solution is found. Since we always sort by highest liquidity, if the path is shorter, replace best route.
             if (!solved) {
                 // this is first solution. Mark as best
-                bestRoute = currentRoute;
+                bestRoute = [...currentRoute];
                 solved = true;
             }
             else {
                 if (currentRoute.length < bestRoute.length) {
-                    bestRoute = currentRoute
+                    bestRoute = [...currentRoute]
                 }
                 // else this is not a better solution
             }
