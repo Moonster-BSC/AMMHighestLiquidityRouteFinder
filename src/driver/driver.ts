@@ -44,6 +44,10 @@ const search = (graph: AdjacencyMap<number>, currentRoute: string[], tokenB: str
             // skip. Don't want to route through same token twice. Should replace this with a visited map tbh. Will try without first to see if this optimization is enough.
             continue
         }
+        if (solved && currentRoute.length >= bestRoute.length) {
+            // don't bother if the path is already longer then the current best sol
+            continue
+        }
         currentRoute.push(symbol)
         if (symbol === tokenB) {
             // solution is found. Since we always sort by highest liquidity, if the path is shorter, replace best route.
