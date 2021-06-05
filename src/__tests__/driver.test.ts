@@ -14,6 +14,7 @@ const run = async () => {
 
     if (sols.length === 0) {
         console.log("No Solution. Try raising threshold")
+        return
     }
 
     console.log("Solutions in desc order of total liquidity: \n")
