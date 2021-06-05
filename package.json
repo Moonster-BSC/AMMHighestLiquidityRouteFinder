@@ -5,7 +5,7 @@
   "author": "Moonster <Moonster.bsc@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "driver": "ts-node ./src/driver/driver.ts",
+    "driver": "ts-node ./src/__tests__/driver.test.ts",
     "test": "jest"
   },
   "dependencies": {

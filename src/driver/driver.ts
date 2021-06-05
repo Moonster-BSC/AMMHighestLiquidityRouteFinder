@@ -6,8 +6,8 @@ import { AdjacencyMap, getPairGraphWithLiquidityWeights } from "../util/getAllPa
 // Shortest Path from A to B
 // With Highest liquidity
 
-let currentRoute = []
-let bestRoute = []
+const currentRoute: string[] = []
+let bestRoute: string[] = []
 let solved = false
 
 export const getShortestPathWithHighestLiquidity = async (startToken: string, endToken: string): Promise<string[]> => {
@@ -17,11 +17,10 @@ export const getShortestPathWithHighestLiquidity = async (startToken: string, en
     
     // init routes
     currentRoute.push(startToken)
-    bestRoute.push(startToken)
 
-    
+    search(graph, currentRoute, startToken, endToken)
 
-
+    return bestRoute
 }
 
 const search = (graph: AdjacencyMap<number>, currentRoute: string[], tokenA: string, tokenB: string) => {

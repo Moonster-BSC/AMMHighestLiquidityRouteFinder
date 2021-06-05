@@ -1,10 +1,21 @@
 import { getShortestPathWithHighestLiquidity } from "../driver/driver";
 
-test('driver', () => {
+// test('driver', () => {
+//     const dai = "DAI"
+//     const bifi = "BIFI"
+//     await getShortestPathWithHighestLiquidity(dai, bifi)
+//     expect(true).toBe(true)
+// });
+
+const run = async () => {
     const dai = "DAI"
     const bifi = "BIFI"
-    await getShortestPathWithHighestLiquidity(dai, bifi)
-    expect(true).toBe(true)
-});
+    const path = await getShortestPathWithHighestLiquidity(dai, bifi)
+    path.forEach(symbol => {
+        console.log(symbol)
+    })
+}
+
+run()
 
 export {}
