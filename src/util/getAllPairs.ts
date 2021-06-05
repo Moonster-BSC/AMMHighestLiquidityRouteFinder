@@ -43,5 +43,3 @@ const putInMap = (pairAdjacencyMap: AdjacencyMap, tokenA: string, tokenB: string
         pairAdjacencyMap[tokenA][tokenB] = reserveUSD
     }
 }
-
-getPairGraphWithLiquidityWeights(quickClient)
