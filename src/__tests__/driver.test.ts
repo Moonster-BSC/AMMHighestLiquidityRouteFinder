@@ -9,11 +9,11 @@ import { getShortestPathWithHighestLiquidity } from "../driver/driver";
 
 const run = async () => {
     const start = "FXS"
-    const end = "LINK"
+    const end = "BIFI"
     const sols = await getShortestPathWithHighestLiquidity(start, end, 100000)
 
     if (sols.length === 0) {
-        console.log("No Solution. Try raising threshold")
+        console.log("No Solution. Try lowering threshold")
         return
     }
 
