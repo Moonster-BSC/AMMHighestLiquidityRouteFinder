@@ -5,7 +5,7 @@
   "author": "Moonster <Moonster.bsc@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "pairs": "ts-node ./src/util/getAllPairs.ts"
+    "driver": "ts-node ./src/driver/driver.ts"
   },
   "dependencies": {
     "@ethersproject/address": "^5.3.0",
