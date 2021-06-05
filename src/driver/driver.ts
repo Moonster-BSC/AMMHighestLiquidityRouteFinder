@@ -10,8 +10,8 @@ const currentRoute: string[] = []
 let bestRoute: string[] = []
 let solved = false
 
-export const getShortestPathWithHighestLiquidity = async (startToken: string, endToken: string): Promise<string[]> => {
-    const graph = await getPairGraphWithLiquidityWeights(quickClient)
+export const getShortestPathWithHighestLiquidity = async (startToken: string, endToken: string, USDThreshold = 500000): Promise<string[]> => {
+    const graph = await getPairGraphWithLiquidityWeights(quickClient, USDThreshold)
 
     // DFS
     

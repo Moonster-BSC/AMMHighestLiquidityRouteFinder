@@ -8,8 +8,7 @@ export interface AdjacencyMap<T> {
     }
 }
 
-export const getPairGraphWithLiquidityWeights = async (client: ApolloClient<NormalizedCacheObject>): Promise<AdjacencyMap<number>> => {
-    const USDThreshold = 500000; // We don't want to use anything with less than 100000 liquidity or else it may incur lots of slippage
+export const getPairGraphWithLiquidityWeights = async (client: ApolloClient<NormalizedCacheObject>, USDThreshold: number): Promise<AdjacencyMap<number>> => {
     const { data } = await client.query({
         query: getAllPairsQuery(USDThreshold)
       });
