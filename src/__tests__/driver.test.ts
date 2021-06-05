@@ -8,8 +8,8 @@ import { getShortestPathWithHighestLiquidity } from "../driver/driver";
 // });
 
 const run = async () => {
-    const start = "$DG"
-    const end = "VISION"
+    const start = "USDC"
+    const end = "BIFI"
     const sols = await getShortestPathWithHighestLiquidity(start, end, 100000)
 
     console.log("Solutions in desc order of total liquidity: \n")

@@ -4,7 +4,9 @@ import { AdjacencyMap, getPairGraphWithLiquidityWeights } from "../util/getAllPa
 
 // Goals:
 // Shortest Path from A to B
-// With Highest liquidity
+// With Highest total liquidity across pairs.
+
+// This is probably a good enough solution. However a super high liquidity pair may skew the total, leaving with a potentially close-to-threshold pair. If this is the case, we could modify this algo to maximize the liquidity of the lowest liquidity pair.
 
 const currentRoute: string[] = []
 let currentLiquiditySum = 0
